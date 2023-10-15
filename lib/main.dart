@@ -36,6 +36,15 @@ class MyApp extends StatelessWidget {
     }
     return const Color(0xFFD1D4DB);
   }
+  Color radioFillColor(Set<MaterialState> states){
+    if(states.contains(MaterialState.selected)){
+      return const Color(0xFF3EB62B);
+    }
+    if(states.contains(MaterialState.disabled)){
+      return const Color(0xFFE6E7EB);
+    }
+    return const Color(0xFFD1D4DB);
+  }
   Color primarySwitchThumbColor(Set<MaterialState> states){
     return const Color(0xFFFFFFFF);
   }
@@ -89,6 +98,10 @@ class MyApp extends StatelessWidget {
           trackOutlineColor: MaterialStateProperty.resolveWith(primarySwitchBackgroundColor),
             trackOutlineWidth:MaterialStateProperty.all(1),
         ),
+        radioTheme: RadioThemeData(
+          fillColor: MaterialStateProperty.resolveWith(radioFillColor),
+          overlayColor: MaterialStateProperty.resolveWith(radioFillColor),
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -108,6 +121,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   bool value = false;
+  RadioOption selected = const RadioOption(title:"Andrew", value: 1);
   void _incrementCounter() {
 
   }
@@ -189,7 +203,17 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
               const PrimarySwitch(value: false, onChanged: null),
               const SizedBox(height: 10,),
-
+              RadioButtonList(
+                  selected: selected,
+                  options: [
+                RadioOption(title:"Andrew", value: 1),
+                RadioOption(title:"Kim", value: 2),
+              ], onChanged: (value){
+                    setState(() {
+                      selected = value;
+                    });
+              }),
+              const SizedBox(height: 10,),
             ],
           ),
         ),
