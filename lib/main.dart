@@ -4,7 +4,7 @@ import 'package:flutter_ui_components/flutter_ui_components.dart';
 void main() {
   runApp(const MyApp());
 }
-
+const primaryColor = Color(0xFF3EB62B);
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,13 +15,13 @@ class MyApp extends StatelessWidget {
     if(states.contains(MaterialState.disabled)){
       return const Color(0xFFC5E9BF);
     }
-    return const Color(0xFF3EB62B);
+    return primaryColor;
   }
   BorderSide secondaryButtonOutlineColor(Set<MaterialState> states){
     if(states.contains(MaterialState.disabled)){
       return const BorderSide(color: Color(0xFFC5E9BF, ), width: 2);
     }
-    return const BorderSide(color: Color(0xFF3EB62B, ), width: 2);
+    return const BorderSide(color: primaryColor, width: 2);
   }
   Color primaryButtonForegroundColor(Set<MaterialState> states){
     return Colors.white;
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 
   Color primarySwitchBackgroundColor(Set<MaterialState> states){
     if(states.contains(MaterialState.selected)){
-      return const Color(0xFF3EB62B);
+      return primaryColor;
     }
     if(states.contains(MaterialState.disabled)){
       return const Color(0xFFE6E7EB);
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
   }
   Color radioOutlineColor(Set<MaterialState> states){
     if(states.contains(MaterialState.selected)){
-      return const Color(0xFF3EB62B);
+      return primaryColor;
     }
     if(states.contains(MaterialState.disabled)){
       return const Color(0xFFE6E7EB);
@@ -64,13 +64,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: "Montserrat",
-        primaryColor: const Color(0xFF3EB62B),
+        primaryColor: primaryColor,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
               textStyle: MaterialStateProperty.resolveWith(textStyle),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
-                side: const BorderSide(color: Color(0xFF3EB62B), width: 1),
+                side: const BorderSide(color: primaryColor, width: 1),
                 )
               ),
               backgroundColor: MaterialStateProperty.resolveWith(primaryButtonBackgroundColor),
@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     side: BorderSide(
                         style: BorderStyle.solid,
-                        color: Color(0xFF3EB62B),
+                        color: primaryColor,
                         width: 1), // <-- this doesn't work at all in shape.
                   )),
               foregroundColor: MaterialStateProperty.resolveWith(primaryButtonBackgroundColor),
@@ -114,6 +114,14 @@ class MyApp extends StatelessWidget {
           materialTapTargetSize: MaterialTapTargetSize.padded,
           // visualDensity:,
         ),
+        toggleButtonsTheme: const ToggleButtonsThemeData(
+          fillColor: Color(0xFFFFFFFF),
+          color: Color(0xFF6B7380),
+          selectedColor: primaryColor,
+          borderColor: const Color(0xFFF9F9F9),
+          selectedBorderColor: const Color(0xFFF5F5F5),
+
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -130,10 +138,16 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  late final tabController = TabController(length: 2, vsync: this);
   bool value = false;
   RadioOption selected = const RadioOption(title:"Andrew", value: 1);
+  List<bool> selectedToggleButtons = [true,false];
+
+  @override
+  void initState() {
+    super.initState();
+  }
   void _incrementCounter() {
 
   }
@@ -151,6 +165,22 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              ProfileToggle(
+                onPressed: (int index) {
+                  setState(() {
+                    // The button that is tapped is set to true, and the others to false.
+                    for (int i = 0; i < selectedToggleButtons.length; i++) {
+                      selectedToggleButtons[i] = i == index;
+                    }
+                  });
+                },
+                selected: selectedToggleButtons,
+                children: [
+                  Container(width: (MediaQuery.of(context).size.width - 36)/2, child: Center(child: Text("data"))),
+                  Container(width: (MediaQuery.of(context).size.width - 36)/2, child: Center(child: Text("Halla"))),
+                  ],
+              ),
+              const SizedBox(height: 10,),
               PrimaryButton(onPressed: (){},
                   child: const Text(
                     "Full Width")),
@@ -217,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 10,),
               RadioButtonList(
                   selected: selected,
-                  options: [
+                  options: const [
                 RadioOption(title:"Andrew", value: 1),
                 RadioOption(title:"Kim", value: 2),
               ], onChanged: (value){

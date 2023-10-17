@@ -88,7 +88,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: c6fa7acc09eb29514bceac81eff6409580acc50e
+      resolved-ref: "43d99ae9484f9eb6d39b1c0355e73e40dca0039b"
       url: "git@github.com:AndrewSithole/flutter_ui_components.git"
     source: git
     version: "0.0.1+3"
