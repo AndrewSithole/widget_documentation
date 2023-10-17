@@ -38,6 +38,15 @@ class MyApp extends StatelessWidget {
   }
   Color radioFillColor(Set<MaterialState> states){
     if(states.contains(MaterialState.selected)){
+      return const Color(0xFFFFFFFF);
+    }
+    if(states.contains(MaterialState.disabled)){
+      return const Color(0xFFE6E7EB);
+    }
+    return const Color(0xFFD1D4DB);
+  }
+  Color radioOutlineColor(Set<MaterialState> states){
+    if(states.contains(MaterialState.selected)){
       return const Color(0xFF3EB62B);
     }
     if(states.contains(MaterialState.disabled)){
@@ -99,8 +108,11 @@ class MyApp extends StatelessWidget {
             trackOutlineWidth:MaterialStateProperty.all(1),
         ),
         radioTheme: RadioThemeData(
-          fillColor: MaterialStateProperty.resolveWith(radioFillColor),
+          fillColor: MaterialStateProperty.resolveWith(radioOutlineColor),
           overlayColor: MaterialStateProperty.resolveWith(radioFillColor),
+          splashRadius: 0,
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+          // visualDensity:,
         ),
         useMaterial3: true,
       ),
