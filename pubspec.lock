@@ -86,11 +86,9 @@ packages:
   flutter_ui_components:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "43d99ae9484f9eb6d39b1c0355e73e40dca0039b"
-      url: "git@github.com:AndrewSithole/flutter_ui_components.git"
-    source: git
+      path: "../flutter_ui_components"
+      relative: true
+    source: path
     version: "0.0.1+3"
   lints:
     dependency: transitive

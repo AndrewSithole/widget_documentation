@@ -4,126 +4,15 @@ import 'package:flutter_ui_components/flutter_ui_components.dart';
 void main() {
   runApp(const MyApp());
 }
-const primaryColor = Color(0xFF3EB62B);
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  TextStyle textStyle(Set<MaterialState> states){
-    return const TextStyle( color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500);
-  }
-  Color primaryButtonBackgroundColor(Set<MaterialState> states){
-    if(states.contains(MaterialState.disabled)){
-      return const Color(0xFFC5E9BF);
-    }
-    return primaryColor;
-  }
-  BorderSide secondaryButtonOutlineColor(Set<MaterialState> states){
-    if(states.contains(MaterialState.disabled)){
-      return const BorderSide(color: Color(0xFFC5E9BF, ), width: 2);
-    }
-    return const BorderSide(color: primaryColor, width: 2);
-  }
-  Color primaryButtonForegroundColor(Set<MaterialState> states){
-    return Colors.white;
-  }
-
-  Color primarySwitchBackgroundColor(Set<MaterialState> states){
-    if(states.contains(MaterialState.selected)){
-      return primaryColor;
-    }
-    if(states.contains(MaterialState.disabled)){
-      return const Color(0xFFE6E7EB);
-    }
-    return const Color(0xFFD1D4DB);
-  }
-  Color radioFillColor(Set<MaterialState> states){
-    if(states.contains(MaterialState.selected)){
-      return const Color(0xFFFFFFFF);
-    }
-    if(states.contains(MaterialState.disabled)){
-      return const Color(0xFFE6E7EB);
-    }
-    return const Color(0xFFD1D4DB);
-  }
-  Color radioOutlineColor(Set<MaterialState> states){
-    if(states.contains(MaterialState.selected)){
-      return primaryColor;
-    }
-    if(states.contains(MaterialState.disabled)){
-      return const Color(0xFFE6E7EB);
-    }
-    return const Color(0xFFD1D4DB);
-  }
-  Color primarySwitchThumbColor(Set<MaterialState> states){
-    return const Color(0xFFFFFFFF);
-  }
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: "Montserrat",
-        primaryColor: primaryColor,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              textStyle: MaterialStateProperty.resolveWith(textStyle),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: const BorderSide(color: primaryColor, width: 1),
-                )
-              ),
-              backgroundColor: MaterialStateProperty.resolveWith(primaryButtonBackgroundColor),
-              foregroundColor: MaterialStateProperty.resolveWith(primaryButtonForegroundColor),
-
-            )
-        ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-            style: ButtonStyle(
-              textStyle: MaterialStateProperty.resolveWith(textStyle),
-              side: MaterialStateProperty.resolveWith(secondaryButtonOutlineColor),
-              shape: MaterialStateProperty.all<OutlinedBorder>(
-                  const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    side: BorderSide(
-                        style: BorderStyle.solid,
-                        color: primaryColor,
-                        width: 1), // <-- this doesn't work at all in shape.
-                  )),
-              foregroundColor: MaterialStateProperty.resolveWith(primaryButtonBackgroundColor),
-            )
-        ),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(
-            color: Colors.black
-          ),
-          bodySmall: TextStyle(
-              color: Colors.black
-          )
-        ),
-        switchTheme: SwitchThemeData(
-          thumbColor: MaterialStateProperty.resolveWith(primarySwitchThumbColor),
-          trackColor: MaterialStateProperty.resolveWith(primarySwitchBackgroundColor),
-          trackOutlineColor: MaterialStateProperty.resolveWith(primarySwitchBackgroundColor),
-            trackOutlineWidth:MaterialStateProperty.all(1),
-        ),
-        radioTheme: RadioThemeData(
-          fillColor: MaterialStateProperty.resolveWith(radioOutlineColor),
-          overlayColor: MaterialStateProperty.resolveWith(radioFillColor),
-          splashRadius: 0,
-          materialTapTargetSize: MaterialTapTargetSize.padded,
-          // visualDensity:,
-        ),
-        toggleButtonsTheme: const ToggleButtonsThemeData(
-          fillColor: Color(0xFFFFFFFF),
-          color: Color(0xFF6B7380),
-          selectedColor: primaryColor,
-          borderColor: const Color(0xFFF9F9F9),
-          selectedBorderColor: const Color(0xFFF5F5F5),
-
-        ),
-        useMaterial3: true,
-      ),
+      theme: AppTheme().defaultTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -143,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   bool value = false;
   RadioOption selected = const RadioOption(title:"Andrew", value: 1);
   List<bool> selectedToggleButtons = [true,false];
+  int? selectedIndex;
 
   @override
   void initState() {
@@ -165,6 +55,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              StarRating(value: 3, onChanged: (int index)=>debugPrint("Clicked index: $index"),),
+              const SizedBox(height: 10,),
+              StatusBadge.success("Success Badge"),
+              StatusBadge.warning("Warning Badge"),
+              StatusBadge.danger("Alert Badge"),
+              StatusBadge.info("Info Badge"),
+              const SizedBox(height: 10,),
+              ChipGroup(
+                inputs: [
+                  ChipOption(label: "Skill 1", id: 1),
+                  ChipOption(label: "Skill 2", id: 2),
+                  ChipOption(label: "Skill 3", id: 3),
+                  ChipOption(label: "Skill 4", id: 4),
+                  ChipOption(label: "Skill 5", id: 5),
+                  ChipOption(label: "Skill 6", id: 6),
+                  ChipOption(label: "Skill 7", id: 7),
+                ],
+                onSelected: null,
+                onDeleted: (){},
+              ),
+              const SizedBox(height: 10,),
+              NumberStepper(number: 3, incrementFunction: (){}, subtractFunction: (){}),
+              const SizedBox(height: 10,),
               ProfileToggle(
                 onPressed: (int index) {
                   setState(() {
