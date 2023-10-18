@@ -33,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   RadioOption selected = const RadioOption(title:"Andrew", value: 1);
   List<bool> selectedToggleButtons = [true,false];
   int? selectedIndex;
+  int sliderNumber = 20;
 
   @override
   void initState() {
@@ -56,6 +57,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               StarRating(value: 3, onChanged: (int index)=>debugPrint("Clicked index: $index"),),
+              const SizedBox(height: 10,),
+              CustomSlider(currentSliderValue: sliderNumber.toDouble(), onChanged: (double number)=>setState(() {
+                sliderNumber = number.round();
+              }),),
               const SizedBox(height: 10,),
               StatusBadge.success("Success Badge"),
               StatusBadge.warning("Warning Badge"),
