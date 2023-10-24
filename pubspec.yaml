@@ -39,7 +39,7 @@ dependencies:
 #    git:
 #      url: git@github.com:AndrewSithole/flutter_ui_components.git
 #      ref: main
-    path: ../flutter_ui_components
+    path: ../pickmme.flutter.uipackage
 
 dev_dependencies:
   flutter_test:

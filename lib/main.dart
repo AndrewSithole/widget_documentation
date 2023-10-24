@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late final tabController = TabController(length: 2, vsync: this);
+  late final dateController = TextEditingController();
   bool value = false;
   RadioOption selected = const RadioOption(title:"Andrew", value: 1);
   List<bool> selectedToggleButtons = [true,false];
@@ -56,6 +57,40 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              DateTextBox(
+                  controller:dateController,
+                  labelText: "Enter date",
+                  hint: "dd/mm/yyyy",
+                  onDateSelected: (DateTime? selectedDate) {
+                    setState(() {
+                      dateController.text = "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
+                    });
+                  }),
+              const SizedBox(height: 10,),
+              AppTextField(
+                labelText: "Test0",
+                // hint: "Test",
+                textFieldType: TextFieldType.NUMBER,),
+              const SizedBox(height: 10,),
+              AppTextField(
+                labelText: "Test0",
+                prefixIcon: Icon(Icons.search),
+                textFieldType: TextFieldType.NUMBER,),
+              const SizedBox(height: 10,),
+              AppTextField(
+                labelText: "Test0",
+                suffix: Icon(Icons.access_alarm),
+                textFieldType: TextFieldType.NUMBER,),
+              const SizedBox(height: 10,),
+              AppTextField(
+                enabled: false,
+                labelText: "Test0",
+                // hint: "Test",
+                textFieldType: TextFieldType.NUMBER,),
+              const SizedBox(height: 10,),
+              OTPInput(onSubmitted: (int pin){
+                debugPrint(pin.toString());
+              },),
               StarRating(value: 3, onChanged: (int index)=>debugPrint("Clicked index: $index"),),
               const SizedBox(height: 10,),
               CustomSlider(currentSliderValue: sliderNumber.toDouble(), onChanged: (double number)=>setState(() {

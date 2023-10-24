@@ -86,7 +86,7 @@ packages:
   flutter_ui_components:
     dependency: "direct main"
     description:
-      path: "../flutter_ui_components"
+      path: "../pickmme.flutter.uipackage"
       relative: true
     source: path
     version: "0.0.1+3"
