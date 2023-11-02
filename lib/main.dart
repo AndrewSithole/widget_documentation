@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_components/flutter_ui_components.dart';
+import 'package:iconsax/iconsax.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: AppTheme().defaultTheme,
+      theme: AppTheme(context: context).defaultTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -30,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late final tabController = TabController(length: 2, vsync: this);
   late final dateController = TextEditingController();
+  late final dropdownController = TextEditingController();
   bool value = false;
   RadioOption selected = const RadioOption(title:"Andrew", value: 1);
   List<bool> selectedToggleButtons = [true,false];
@@ -46,7 +48,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    final List<DropdownMenuEntry<ColorLabel>> colorEntries =
+    <DropdownMenuEntry<ColorLabel>>[];
+    for (final ColorLabel color in ColorLabel.values) {
+      colorEntries.add(
+        DropdownMenuEntry<ColorLabel>(
+            value: color, label: color.label, enabled: color.label != 'Grey'),
+      );
+    }
+
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -57,15 +68,182 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+
+              10.height,
+              AppJobAdvertCard(
+                jobName: 'Tax Preparation',
+                employerName: 'DVT',
+                locationName: 'PickMe',
+                matchingText: "Your profile matches this job",
+                dateTime: DateTime.now().add(const Duration(days: 5)),
+                status: JobStatus.applied,
+                onNext: () {  },
+              ),
+              10.height,
+              const AppWalletTile(
+                title: "Available Tokens",
+                amount: "00.00",
+              ),
+              10.height,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                      children: [
+                        AppSectionCard.small(title: "Buy",
+                          color: const Color(0xFFF17E2C),
+                          icon: Icon(Iconsax.card_receive, color: Colors.white, size: 20,)
+                        ),
+                        10.height,
+                        const AppSectionCard(
+                            icon: Icon(Iconsax.wallet_money, color: Colors.white, size: 20,),
+                            title: "Pickme Invest",
+                          color: const Color(0xFF23A8B3),
+                        ),
+                      ]),
+                  10.width,
+                  Column(
+                      children: [
+                        const AppSectionCard(
+                          icon: Icon(Iconsax.wallet_2, color: Colors.white, size: 20,),
+                          title: "My Wallet",
+                          color: const Color(0xFF3EB62B),
+                        ),                        10.height,
+                        AppSectionCard.small(
+                          icon: Icon(Iconsax.card_send, color: Colors.white, size: 20,),
+                          title: "Pay",
+                          color: const Color(0xFFF44F4E),
+                        ),
+                      ]),
+                ],
+              ),
+              10.height,
+               AppJobCard(
+                jobName: 'Tax Preparation',
+                employerName: 'DVT',
+                locationName: 'PickMe',
+                dateTime: DateTime.now().add(const Duration(days: 5)),
+                status: JobStatus.applied,
+                onNext: () {  },
+              ),
+              10.height,
+               AppEmployeeJobCard(
+                jobName: 'Tax Preparation',
+                employeeName: 'Andrew Test',
+                locationName: 'PickMe',
+                dateTime: DateTime.now().add(const Duration(days: 5)),
+                status: JobStatus.applied,
+                onNext: () {  },
+              ),
+              10.height,
+               AppJobCard(
+                jobName: 'Cancelled Job',
+                employerName: 'DVT',
+                locationName: 'PickMe',
+                dateTime: DateTime.now().add(const Duration(days: 3)),
+                status: JobStatus.cancelled,
+                onNext: () {  },
+              ),
+              10.height,
+              const AppSubscriptionPlan(
+                price: 'R 20.00',
+                subscriptionType: 'once off',
+                entityType: EntityType.individual,
+                includedItems: [
+                  "Test string 1",
+                  "Test string ",
+                ],
+              ),
+              10.height,
+              const AppSubscriptionPlan(
+                price: 'R 20.00',
+                subscriptionType: 'once off',
+                entityType: EntityType.business,
+                includedItems: [
+                  "Test string 1",
+                  "Test string ",
+                ],
+              ),
+              10.height,
+              10.height,
+              const AppSubscriptionPlan(
+                price: 'R 20.00',
+                subscriptionType: 'once off',
+                entityType: EntityType.individual,
+                selected: true,
+                includedItems: [
+                  "Test string 1",
+                  "Test string ",
+                ],
+              ),
+              10.height,
+              const AppSubscriptionPlan(
+                price: 'R 20.00',
+                subscriptionType: 'once off',
+                entityType: EntityType.business,
+                selected: true,
+                includedItems: [
+                  "Test string 1",
+                  "Test string ",
+                ],
+              ),
+              10.height,
+              AppTabBar(
+                viewHeight:40,
+                tabs: const <Widget>[
+                  Text("Segment 1"),
+                  Text("Segment 2"),
+                  Text("Segment 3"),
+                ],
+                views: const <Widget>[
+                  Center(
+                    child: Text("Segment 1 content here"),
+                  ),
+                  Center(
+                    child: Text("Segment 2 content here"),
+                  ),
+                  Center(
+                    child: Text("Segment 3 content here"),
+                  ),
+                ],
+              ),
+              10.height,
+              const AppImageAvatar(),
+              10.height,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const AppTextAvatar(text: "UN"),
+                  10.width,
+                  AppTextAvatar.medium(text: "UN"),
+                  10.width,
+                  AppTextAvatar.small(text: "UN"),
+                ],
+              ),
+              10.height,
+              AppDropdownMenu(
+                controller: dropdownController,
+                enableFilter: true,
+                dropdownMenuEntries: colorEntries,
+                width: MediaQuery.of(context).size.width-16,
+              ),
+              10.height,
               DateTextBox(
                   controller:dateController,
                   labelText: "Enter date",
                   hint: "dd/mm/yyyy",
                   onDateSelected: (DateTime? selectedDate) {
-                    setState(() {
-                      dateController.text = "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
-                    });
+                    dateController.text = "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
                   }),
+              AppDatePickerFormField(
+                  // controller:dateController,
+                  // labelText: "Enter date",
+                  // hint: "dd/mm/yyyy",
+                  onDateSelected: (DateTime? selectedDate) {
+                    // dateController.text = "${selectedDate!.day}/${selectedDate.month}/${selectedDate.year}";
+                  },
+                firstDate: DateTime.now().addYears(numberOfYears: -100),
+                lastDate: DateTime.now().addYears(numberOfYears: 100),),
               const SizedBox(height: 10,),
               AppTextField(
                 labelText: "Test0",
@@ -74,12 +252,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               const SizedBox(height: 10,),
               AppTextField(
                 labelText: "Test0",
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 textFieldType: TextFieldType.NUMBER,),
               const SizedBox(height: 10,),
               AppTextField(
                 labelText: "Test0",
-                suffix: Icon(Icons.access_alarm),
+                suffix: const Icon(Icons.access_alarm),
                 textFieldType: TextFieldType.NUMBER,),
               const SizedBox(height: 10,),
               AppTextField(
@@ -101,6 +279,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               StatusBadge.warning("Warning Badge"),
               StatusBadge.danger("Alert Badge"),
               StatusBadge.info("Info Badge"),
+              const SizedBox(height: 10,),
+              Row(
+                children: [
+                  const Expanded(child: Center(child: NotificationBadge(count: 10,))),
+                  Expanded(child: Center(child: NotificationBadge.small())),
+                ],
+              ),
               const SizedBox(height: 10,),
               ChipGroup(
                 inputs: [
@@ -129,8 +314,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 },
                 selected: selectedToggleButtons,
                 children: [
-                  Container(width: (MediaQuery.of(context).size.width - 36)/2, child: Center(child: Text("data"))),
-                  Container(width: (MediaQuery.of(context).size.width - 36)/2, child: Center(child: Text("Halla"))),
+                  Container(width: (MediaQuery.of(context).size.width - 36)/2, child: const Center(child: Text("data"))),
+                  Container(width: (MediaQuery.of(context).size.width - 36)/2, child: const Center(child: Text("Halla"))),
                   ],
               ),
               const SizedBox(height: 10,),
@@ -170,7 +355,18 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          "Full Width"),
+                          "Secondary Full Width"),
+                      SizedBox(width: 10,),
+                      Icon(Icons.arrow_forward)
+                    ],
+                  )),
+              const SizedBox(height: 10,),
+              TertiaryButton(onPressed: (){},
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                          "Tertiary Button"),
                       SizedBox(width: 10,),
                       Icon(Icons.arrow_forward)
                     ],
@@ -220,4 +416,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+enum ColorLabel {
+  blue('Blue', Colors.blue),
+  pink('Pink', Colors.pink),
+  green('Green', Colors.green),
+  yellow('Yellow', Colors.yellow),
+  grey('Grey', Colors.grey);
+
+  const ColorLabel(this.label, this.color);
+  final String label;
+  final Color color;
 }
