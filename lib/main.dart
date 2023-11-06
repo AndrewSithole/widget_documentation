@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             value: color, label: color.label, enabled: color.label != 'Grey'),
       );
     }
-
+    var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -68,7 +68,52 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
+              10.height,
+              const AppCandidateProfile(fullName: "John Doe", jobTitle: "Plumber", rating: 4, hourlyRate: "R00 p/h"),
+              10.height,
+              AppExplorationTile(
+                title: "My Job Requests",
+                count: 0,
+                onClick: (){},
+              ),
+              AppExplorationTile(
+                title: "My Job Requests",
+                count: 1,
+                onClick: (){},
+              ),
+              const AppExplorationTile(
+                title: "My Job Requests",
+              ),
+              AppDialog(
+                  title: "Switching Profiles",
+                  content: "Switching your profile from 'Working' to 'Hiring.' Confirm your choice?",
+                backgroundColor: Colors.white,
+                actions: [
+                  SecondaryButton(
+                    onPressed: (){},
+                    fullWidth: false,
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all(
+                        BorderSide(
+                          color: theme.colorScheme.secondary,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    child: Text("No, Cancel",
+                      style: TextStyle(
+                        color: theme.colorScheme.secondary,
+                      ),
+                    ),
+                  ),
+                  PrimaryButton(
+                    onPressed: (){},
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16, ),
+                    fullWidth: false,
+                    child: const Text("Yes, switch"),
+                  ),
+                ],
+              ),
               10.height,
               AppJobAdvertCard(
                 jobName: 'Tax Preparation',
@@ -78,6 +123,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 dateTime: DateTime.now().add(const Duration(days: 5)),
                 status: JobStatus.applied,
                 onNext: () {  },
+              ),
+              10.height,
+              AppJobAdvertCard.applicationsAndMatches(
+                jobName: 'Applications',
+                employerName: 'DVT',
+                locationName: 'PickMe',
+                matchingText: "Your profile matches this job",
+                dateTime: DateTime.now().add(const Duration(days: 5)),
+                onNext: () {  },
+                totalApplications: 2,
               ),
               10.height,
               const AppWalletTile(
@@ -92,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       children: [
                         AppSectionCard.small(title: "Buy",
                           color: const Color(0xFFF17E2C),
-                          icon: Icon(Iconsax.card_receive, color: Colors.white, size: 20,)
+                          icon: const Icon(Iconsax.card_receive, color: Colors.white, size: 20,)
                         ),
                         10.height,
                         const AppSectionCard(
@@ -110,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           color: const Color(0xFF3EB62B),
                         ),                        10.height,
                         AppSectionCard.small(
-                          icon: Icon(Iconsax.card_send, color: Colors.white, size: 20,),
+                          icon: const Icon(Iconsax.card_send, color: Colors.white, size: 20,),
                           title: "Pay",
                           color: const Color(0xFFF44F4E),
                         ),
@@ -269,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               OTPInput(onSubmitted: (int pin){
                 debugPrint(pin.toString());
               },),
-              StarRating(value: 3, onChanged: (int index)=>debugPrint("Clicked index: $index"),),
+              AppStarRating(rating: 3, onChanged: (int index)=>debugPrint("Clicked index: $index"),),
               const SizedBox(height: 10,),
               CustomSlider(currentSliderValue: sliderNumber.toDouble(), onChanged: (double number)=>setState(() {
                 sliderNumber = number.round();
@@ -338,9 +393,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   child: Text(
                       "Disabled primary button")),
               const SizedBox(height: 10,),
-              PrimaryButton.halfWidth(onPressed: null,
+              PrimaryButton.fullWidth(
+                  onPressed: null,
                   child: const Text(
-                      "Full Width")),
+                      "Full Width disabled")),
               const SizedBox(height: 10,),
               PrimaryButton.small(onPressed:(){},child: const Text("Small button", style: TextStyle(fontSize: 14),)),
               const SizedBox(height: 10,),
@@ -372,8 +428,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     ],
                   )),
               const SizedBox(height: 10,),
-              const SecondaryButton(onPressed: null,
-                  child: Row(
+              SecondaryButton.fullWidth(onPressed: null,
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -383,7 +439,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     ],
                   )),
               const SizedBox(height: 10,),
-              SecondaryButton.halfWidth(onPressed: (){},
+              SecondaryButton(
+                  onPressed: (){},
                   child: const Text(
                       "Half Width")),
               const SizedBox(height: 10,),
