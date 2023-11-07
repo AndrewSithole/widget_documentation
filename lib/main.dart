@@ -69,7 +69,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               10.height,
-              const AppCandidateProfile(fullName: "John Doe", jobTitle: "Plumber", rating: 4, hourlyRate: "R00 p/h"),
+              AppCandidateProfile(
+                  fullName: "John Doe", 
+                  jobTitle: "Plumber", 
+                  rating: 4, 
+                  hourlyRate: "R00 p/h",
+                nextButton: TertiaryButton(onPressed: (){}, child: Text("Next"), height: 35,),
+              ),
               10.height,
               AppExplorationTile(
                 title: "My Job Requests",
