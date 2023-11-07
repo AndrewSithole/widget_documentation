@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_components/flutter_ui_components.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 void main() {
   runApp(const MyApp());
@@ -69,10 +70,44 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               10.height,
+              //From asset
+              const AppChatTile(
+                firstName: "John",
+                lastName: "Doe",
+                lastChatFromMe: true,
+                jobTitle: "Plumber",
+                lastMessage: "Hello world",
+                active: true,
+                image: AssetImage(
+                  "assets/avatar.jpg",
+                ),
+              ),
+              10.height,
+              // From Cached network image
+              const AppChatTile(
+                firstName: "John",
+                lastName: "Doe",
+                lastChatFromMe: true,
+                jobTitle: "Plumber",
+                lastMessage: "Hello world",
+                notificationCount: 7,
+                image: CachedNetworkImageProvider(
+                  "https://images.unsplash.com/photo-1463453091185-61582044d556?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                ),
+              ),
+              10.height,
+              AppCandidateProfileTile(
+                  fullName: "John Doe",
+                  jobTitle: "Plumber",
+                  rating: 4,
+                  hourlyRate: "R00 p/h",
+                nextButton: TertiaryButton(onPressed: (){}, child: const Text("Next"), height: 35,),
+              ),
+              10.height,
               AppCandidateProfile(
-                  fullName: "John Doe", 
-                  jobTitle: "Plumber", 
-                  rating: 4, 
+                  fullName: "John Doe",
+                  jobTitle: "Plumber",
+                  rating: 4,
                   hourlyRate: "R00 p/h",
                 nextButton: TertiaryButton(onPressed: (){}, child: Text("Next"), height: 35,),
               ),
@@ -270,6 +305,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ),
               10.height,
               const AppImageAvatar(),
+              10.height,
+              const AppSquareImageAvatar(),
               10.height,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
