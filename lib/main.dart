@@ -70,41 +70,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               10.height,
-              AppJobDetailCard(
-                jobName: 'Tax Preparation',
-                employerName: 'DVT Company Example',
-                locationName: 'PickMe',
-                matchingText: "Your profile matches this job",
-                dateTime: DateTime.now().add(const Duration(days: 5)),
-                status: JobStatus.applied,
-                estimatedTime: '5 hours',
-                rate: "R 5.00 per hour",
-                onNext: () {  },
-              ),
-              10.height,
-              AppProfileReview(
-                fullName: 'Levi Andrews',
-                relationship: 'Customer',
-                rating: 5,
-                reviewDate: DateTime.now().add(const Duration(days: -5)),
-                review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore etdolo re magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-              ),
-              10.height,
-              AppProfileQualification(qualification: Award(
-                name: 'PickMe Award',
-                qualificationType: AppQualificationType.award,
-                institutionName: 'DVT',
-                issuedOn: DateTime.now()
-              ),),
-              10.height,
-              AppProfileQualification(qualification: Award(
-                name: 'PickMe Award',
-                qualificationType: AppQualificationType.education,
-                educationType: "Degree",
-                institutionName: 'DVT',
-                issuedOn: DateTime.now()
-              ),),
-              10.height,
               //From asset
               const AppChatTile(
                 firstName: "John",
@@ -341,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               10.height,
               const AppImageAvatar(),
               10.height,
-              const AppSquareImageAvatar(color: Colors.black26,),
+              const AppSquareImageAvatar(),
               10.height,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -562,14 +527,4 @@ enum ColorLabel {
   const ColorLabel(this.label, this.color);
   final String label;
   final Color color;
-}
-
-class Award extends QualificationContract{
-  Award({
-    required super.name,
-    required super.qualificationType,
-    required super.institutionName,
-    super.issuedOn,
-    super.educationType,
-  });
 }
