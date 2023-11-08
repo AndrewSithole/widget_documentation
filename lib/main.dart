@@ -70,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               10.height,
+              AppTimePicker(),
+              10.height,
               AppJobDetailCard(
                 jobName: 'Tax Preparation',
                 employerName: 'DVT Company Example',
