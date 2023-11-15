@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: AppTheme(context: context).defaultTheme,
+      theme: AppTheme().defaultTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -210,28 +210,34 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   content: "Switching your profile from 'Working' to 'Hiring.' Confirm your choice?",
                 backgroundColor: Colors.white,
                 actions: [
-                  SecondaryButton(
-                    onPressed: (){},
-                    fullWidth: false,
-                    style: ButtonStyle(
-                      side: MaterialStateProperty.all(
-                        BorderSide(
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: SecondaryButton(
+                      onPressed: (){},
+                      fullWidth: false,
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                          BorderSide(
+                            color: theme.colorScheme.secondary,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      child: Text("No, Cancel",
+                        style: TextStyle(
                           color: theme.colorScheme.secondary,
-                          width: 2,
                         ),
                       ),
                     ),
-                    child: Text("No, Cancel",
-                      style: TextStyle(
-                        color: theme.colorScheme.secondary,
-                      ),
-                    ),
                   ),
-                  PrimaryButton(
-                    onPressed: (){},
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16, ),
-                    fullWidth: false,
-                    child: const Text("Yes, switch"),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: PrimaryButton(
+                      onPressed: (){},
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16, ),
+                      fullWidth: false,
+                      child: const Text("Yes, switch"),
+                    ),
                   ),
                 ],
               ),
@@ -401,10 +407,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               10.height,
               AppTabBar(
                 viewHeight:40,
-                tabs: const <Widget>[
-                  Text("Segment 1"),
-                  Text("Segment 2"),
-                  Text("Segment 3"),
+                tabs: <Widget>[
+                  Text("Segment 1", style: theme.textTheme.bodySmall,),
+                  Text("Segment 2", style: theme.textTheme.bodySmall,),
+                  Text("Segment 3", style: theme.textTheme.bodySmall,),
                 ],
                 views: const <Widget>[
                   Center(
@@ -475,6 +481,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               Text("Text Fields", style: Theme.of(context).textTheme.headlineSmall,),
               10.height,
               AppTextField(
+                labelText: "Phone Number",
+                // hint: "Test",
+                textFieldType: TextFieldType.NUMBER,),
+              10.height,
+              AppTextFormField(
                 labelText: "Test0",
                 // hint: "Test",
                 textFieldType: TextFieldType.NUMBER,),
@@ -547,12 +558,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   ChipOption(label: "Skill 2", id: 2),
                   ChipOption(label: "Skill 3", id: 3),
                   ChipOption(label: "Skill 4", id: 4),
-                  ChipOption(label: "Skill 5", id: 5),
-                  ChipOption(label: "Skill 6", id: 6),
-                  ChipOption(label: "Skill 7", id: 7),
                 ],
-                onSelected: null,
                 onDeleted: (){},
+              ),
+              10.height,
+              ChipGroup(
+                inputs: [
+                  ChipOption(label: "Skill 5", id: 1),
+                  ChipOption(label: "Skill 6", id: 2),
+                  ChipOption(label: "Skill 7", id: 3),
+                  ChipOption(label: "Skill 8", id: 4),
+                ],
               ),
               10.height,
               const AppDivider(),
